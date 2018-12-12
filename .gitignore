@@ -29,3 +29,7 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+*.properties
+
+ServidorSOA/nbproject/jaxws-build\.xml
