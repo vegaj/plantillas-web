@@ -38,5 +38,5 @@ public class ProductoFacade extends AbstractFacade<Producto> implements Producto
         tq.setParameter("fecha", fecha);
         return tq.getResultList();
     }
-    
+        
 }

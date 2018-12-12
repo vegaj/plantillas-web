@@ -52,7 +52,7 @@ public class Producto implements Serializable {
     private int cantidad;
     @Basic(optional = false)
     @NotNull
-    private float precio;
+    private double precio;
     @Size(max = 150)
     private String detalles;
     @Basic(optional = false)
@@ -75,7 +75,7 @@ public class Producto implements Serializable {
         this.id = id;
     }
 
-    public Producto(Integer id, String nombre, int cantidad, int precio, String imagen, Date caducidad, String vendedor) {
+    public Producto(Integer id, String nombre, int cantidad, double precio, String imagen, Date caducidad, String vendedor) {
         this.id = id;
         this.nombre = nombre;
         this.cantidad = cantidad;
@@ -109,11 +109,11 @@ public class Producto implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public float getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(float precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 
