@@ -20,7 +20,7 @@ CREATE TABLE "producto" (
     "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
     "nombre" VARCHAR(50) NOT NULL,
     "cantidad" INTEGER NOT NULL,
-    "precio" INTEGER NOT NULL,
+    "precio" FLOAT NOT NULL,
     "detalles" VARCHAR(150),
     "imagen" VARCHAR(256) NOT NULL DEFAULT 'https://i5.walmartimages.ca/images/Large/428/5_r/6000195494285_R.jpg',
     "caducidad" DATE NOT NULL DEFAULT CURRENT_DATE,
