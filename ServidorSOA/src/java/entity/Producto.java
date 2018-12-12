@@ -52,7 +52,7 @@ public class Producto implements Serializable {
     private int cantidad;
     @Basic(optional = false)
     @NotNull
-    private int precio;
+    private float precio;
     @Size(max = 150)
     private String detalles;
     @Basic(optional = false)
@@ -109,11 +109,11 @@ public class Producto implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public int getPrecio() {
+    public float getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(float precio) {
         this.precio = precio;
     }
 

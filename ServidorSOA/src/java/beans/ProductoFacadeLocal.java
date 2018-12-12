@@ -6,6 +6,7 @@
 package beans;
 
 import entity.Producto;
+import java.sql.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -30,4 +31,5 @@ public interface ProductoFacadeLocal {
 
     int count();
     
+    List<Producto> caducadosFecha(Date date);
 }

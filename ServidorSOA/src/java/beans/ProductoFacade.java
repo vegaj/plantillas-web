@@ -6,9 +6,12 @@
 package beans;
 
 import entity.Producto;
+import java.sql.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -27,6 +30,13 @@ public class ProductoFacade extends AbstractFacade<Producto> implements Producto
 
     public ProductoFacade() {
         super(Producto.class);
+    }
+
+    @Override
+    public List<Producto> caducadosFecha(Date fecha) {
+        TypedQuery<Producto> tq = getEntityManager().createQuery("SELECT p FROM Producto p WHERE p.caducidad < :fecha", Producto.class);
+        tq.setParameter("fecha", fecha);
+        return tq.getResultList();
     }
     
 }
