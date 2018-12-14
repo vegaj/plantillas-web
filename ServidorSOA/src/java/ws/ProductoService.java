@@ -74,7 +74,11 @@ public class ProductoService {
         if (prod == null) {
             return false;
         }
-        return notBlank(prod.getNombre()) && notBlank(prod.getVendedor()) && prod.getPrecio() > 0 && prod.getCantidad() >= 0;
+        boolean okNombre = notBlank(prod.getNombre());
+        boolean okVendedor = notBlank(prod.getVendedor());
+        boolean okPrecio = prod.getPrecio() > 0;
+        boolean okCantidad = prod.getCantidad() > 0;
+        return  okNombre && okVendedor && okCantidad && okPrecio;
     }
     
     private boolean notBlank(String str) {
