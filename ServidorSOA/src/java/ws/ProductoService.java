@@ -133,9 +133,11 @@ public class ProductoService {
     }
 
     @WebMethod(operationName = "caducadosDesde")
-    public List<Producto> getCaducados(@WebParam(name = "desde") Date desde) {
-        if (desde == null) desde = new Date(System.currentTimeMillis());
-        List<Producto> prod = ejbRef.caducadosFecha(desde);
+    public List<Producto> getCaducados(@WebParam(name = "desde") String desde) {
+        Date date;
+        if (desde == null) date = new Date(System.currentTimeMillis());
+        else date = Date.valueOf(desde);
+        List<Producto> prod = ejbRef.caducadosFecha(date);
         return prod;
     }    
 }

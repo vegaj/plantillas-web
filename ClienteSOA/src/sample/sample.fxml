@@ -26,6 +26,10 @@
                   <Button fx:id="toolbarCrearBtn" mnemonicParsing="false" onAction="#handleFormularioCrear" text="Crear" />
                   <Button fx:id="toolbarFindAllBtn" mnemonicParsing="false" onAction="#handleFindAll" text="Buscar Todo" />
                   <Button fx:id="toolbarFindCaducadosBtn" mnemonicParsing="false" onAction="#handleCaducados" text="Caducados" />
+                  <Label text="Fecha Caducidad">
+                     <graphic>
+                        <DatePicker fx:id="formCaducidadPicker" />
+                     </graphic></Label>
               </items>
             </ToolBar>
          </top>
@@ -66,7 +70,7 @@
                <children>
                   <ToolBar fx:id="advancedToolbar" prefHeight="40.0" prefWidth="200.0">
                     <items>
-                      <Button mnemonicParsing="false" text="Eliminar" />
+                      <Button mnemonicParsing="false" onAction="#handleBorrar" text="Eliminar" />
                     </items>
                   </ToolBar>
                   <Label fx:id="vistaPrevia" text="Vista Producto" wrapText="true">

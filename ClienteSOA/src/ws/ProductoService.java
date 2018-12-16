@@ -79,54 +79,6 @@ public interface ProductoService {
 
     /**
      * 
-     * @param desde
-     * @return
-     *     returns java.util.List<ws.Producto>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "caducadosDesde", targetNamespace = "http://ws/", className = "ws.CaducadosDesde")
-    @ResponseWrapper(localName = "caducadosDesdeResponse", targetNamespace = "http://ws/", className = "ws.CaducadosDesdeResponse")
-    @Action(input = "http://ws/ProductoService/caducadosDesdeRequest", output = "http://ws/ProductoService/caducadosDesdeResponse")
-    public List<Producto> caducadosDesde(
-        @WebParam(name = "desde", targetNamespace = "")
-        Date desde);
-
-    /**
-     * 
-     * @param id
-     * @param cantidad
-     */
-    @WebMethod
-    @RequestWrapper(localName = "reponer", targetNamespace = "http://ws/", className = "ws.Reponer")
-    @ResponseWrapper(localName = "reponerResponse", targetNamespace = "http://ws/", className = "ws.ReponerResponse")
-    @Action(input = "http://ws/ProductoService/reponerRequest", output = "http://ws/ProductoService/reponerResponse")
-    public void reponer(
-        @WebParam(name = "id", targetNamespace = "")
-        Object id,
-        @WebParam(name = "cantidad", targetNamespace = "")
-        Integer cantidad);
-
-    /**
-     * 
-     * @param id
-     * @param cantidad
-     * @return
-     *     returns java.lang.Float
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "compar", targetNamespace = "http://ws/", className = "ws.Compar")
-    @ResponseWrapper(localName = "comparResponse", targetNamespace = "http://ws/", className = "ws.ComparResponse")
-    @Action(input = "http://ws/ProductoService/comparRequest", output = "http://ws/ProductoService/comparResponse")
-    public Float compar(
-        @WebParam(name = "id", targetNamespace = "")
-        Object id,
-        @WebParam(name = "cantidad", targetNamespace = "")
-        int cantidad);
-
-    /**
-     * 
      * @return
      *     returns java.util.List<ws.Producto>
      */
@@ -163,5 +115,53 @@ public interface ProductoService {
     public void edit(
         @WebParam(name = "producto", targetNamespace = "")
         Producto producto);
+
+    /**
+     * 
+     * @param id
+     * @param cantidad
+     */
+    @WebMethod
+    @RequestWrapper(localName = "reponer", targetNamespace = "http://ws/", className = "ws.Reponer")
+    @ResponseWrapper(localName = "reponerResponse", targetNamespace = "http://ws/", className = "ws.ReponerResponse")
+    @Action(input = "http://ws/ProductoService/reponerRequest", output = "http://ws/ProductoService/reponerResponse")
+    public void reponer(
+        @WebParam(name = "id", targetNamespace = "")
+        Object id,
+        @WebParam(name = "cantidad", targetNamespace = "")
+        Integer cantidad);
+
+    /**
+     * 
+     * @param desde
+     * @return
+     *     returns java.util.List<ws.Producto>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "caducadosDesde", targetNamespace = "http://ws/", className = "ws.CaducadosDesde")
+    @ResponseWrapper(localName = "caducadosDesdeResponse", targetNamespace = "http://ws/", className = "ws.CaducadosDesdeResponse")
+    @Action(input = "http://ws/ProductoService/caducadosDesdeRequest", output = "http://ws/ProductoService/caducadosDesdeResponse")
+    public List<Producto> caducadosDesde(
+        @WebParam(name = "desde", targetNamespace = "")
+        String desde);
+
+    /**
+     * 
+     * @param id
+     * @param cantidad
+     * @return
+     *     returns java.lang.Float
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "compar", targetNamespace = "http://ws/", className = "ws.Compar")
+    @ResponseWrapper(localName = "comparResponse", targetNamespace = "http://ws/", className = "ws.ComparResponse")
+    @Action(input = "http://ws/ProductoService/comparRequest", output = "http://ws/ProductoService/comparResponse")
+    public Float compar(
+        @WebParam(name = "id", targetNamespace = "")
+        Object id,
+        @WebParam(name = "cantidad", targetNamespace = "")
+        int cantidad);
 
 }

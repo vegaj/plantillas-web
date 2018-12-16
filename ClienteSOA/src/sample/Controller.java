@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.collections.MapChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -62,13 +61,21 @@ public class Controller implements Initializable {
     }
 
 
+    @FXML
+    private DatePicker formCaducidadPicker;
     public void handleCaducados(ActionEvent event) {
         List<Producto> productos;
         toolbarFindCaducadosBtn.setDisable(true);
         try {
-            productos = getInstance().findCaducados(null);
+            XMLGregorianCalendar date = extractDate(formCaducidadPicker);
+            productos = getInstance().findCaducados(date);
+            setList(productos);
         } catch (Exception e) {
-
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error Caducados");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return;
         } finally {
             toolbarFindCaducadosBtn.setDisable(false);
         }
@@ -78,7 +85,31 @@ public class Controller implements Initializable {
         this.prod = new Producto();
         this.prod.setVendedor("System");
         this.prod.setId(0);
+        this.prod.setImagen("");
         this.cambiaProductoActual(prod);
+    }
+
+    public void handleBorrar() {
+        if(this.prod == null || this.prod.getId() == null || this.prod.getId() <= 0){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText("Atención al Borrar");
+            alert.setContentText("El producto no es válido para ser borrado");
+            alert.showAndWait();
+            return;
+        }
+        try {
+            getInstance().removeProduct(this.prod);
+            notification.setText("Producto borrado!");
+            setList(getInstance().findAll());
+            this.prod = new Producto();
+            cambiaProductoActual(prod);
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error al Borrar");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return;
+        }
     }
 
     @FXML
@@ -179,8 +210,8 @@ public class Controller implements Initializable {
         vistaNombre.setText(nombre);
         vistaVendedor.setText(vended);
         vistaDetalles.setText(detall);
-        vistaPrecio.setText(String.valueOf(p.getPrecio()) + " \u20AC");
-        vistaCantidad.setText(String.valueOf(p.getCantidad()) + " unidades");
+        vistaPrecio.setText(String.valueOf(p.getPrecio()));
+        vistaCantidad.setText(String.valueOf(p.getCantidad()));
         try {
             vistaImagen.setImage(new Image(imgurl));
         } catch(Exception e) {
@@ -249,13 +280,15 @@ public class Controller implements Initializable {
         colDetalles.setCellValueFactory(new PropertyValueFactory<>("detalles"));
         colImg.setCellValueFactory(new PropertyValueFactory<>("imagen"));
         colVendedor.setCellValueFactory(new PropertyValueFactory<>("vendedor"));
-        colCaducidad.setCellValueFactory(new PropertyValueFactory<>("fecha de caducidad"));
+
+        colCaducidad.setCellValueFactory(new PropertyValueFactory<>("caducidad"));
         colCaducidad.setCellFactory((column -> new TableCell<Producto, XMLGregorianCalendar>() {
-            private SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
             @Override
             protected void updateItem(XMLGregorianCalendar item, boolean empty) {
                 super.updateItem(item, empty);
+
                 if (empty || item == null || item.toGregorianCalendar() == null) {
                     setText(null);
                 } else {
@@ -263,6 +296,7 @@ public class Controller implements Initializable {
                 }
             }
         }));
+
 
         //Map Formulario -> Vista;
         crearNombre.textProperty().addListener((observable, oldValue, newValue) -> vistaNombre.setText(newValue));
@@ -305,7 +339,7 @@ public class Controller implements Initializable {
             }
         });
         crearFecha.valueProperty().addListener((observable, oldValue, newValue) -> vistaFecha.setText(newValue.atStartOfDay().toLocalDate().toString()));
-
+        formCaducidadPicker.setValue(LocalDate.now());
         cambiaProductoActual(this.prod);
     }
 

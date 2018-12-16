@@ -195,14 +195,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Date }
-     * 
-     */
-    public Date createDate() {
-        return new Date();
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ComparResponse }{@code >}}
      * 
      */

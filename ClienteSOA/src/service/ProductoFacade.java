@@ -1,7 +1,6 @@
 package service;
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
 import ws.Producto;
 import ws.ProductoService;
 import ws.ProductoService_Service;
@@ -9,11 +8,11 @@ import ws.ProductoService_Service;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.List;
+
 
 public class ProductoFacade {
 
@@ -23,8 +22,6 @@ public class ProductoFacade {
         if (singleton == null) singleton = new ProductoFacade();
         return singleton;
     }
-
-
 
     public static XMLGregorianCalendar currentTime() {
         GregorianCalendar c = new GregorianCalendar();
@@ -64,7 +61,6 @@ public class ProductoFacade {
         }
     }
 
-
     public void removeProduct(Producto p){
         if (p.getId() == null || p.getId() == 0) {
             throw new OperationException("Producto no válido");
@@ -82,8 +78,10 @@ public class ProductoFacade {
         return port.findAll();
     }
 
-    public List<Producto> findCaducados(Date d) {
-        return new ArrayList<>();
+    public List<Producto> findCaducados(XMLGregorianCalendar date) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String desde = dateFormat.format(date.toGregorianCalendar().getTime());
+        return port.caducadosDesde(desde);
     }
 
     public void crear(Producto p) {
